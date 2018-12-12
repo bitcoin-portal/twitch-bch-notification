@@ -5,7 +5,7 @@ const socket = io("https://cashexplorer.bitcoin.com/");
 const toLegacyAddress = bchaddr.toLegacyAddress;
 const address = toLegacyAddress(settings.cashaddr);
 
-const audio = document.getElementById('sound');
+const audio = document.getElementById("sound");
 const amount = document.getElementById("amount");
 const notify = document.getElementById("notification");
 const message = document.getElementById("message");
@@ -13,61 +13,60 @@ const message = document.getElementById("message");
 let timeout = null;
 
 socket.on("connect", () => {
-    socket.emit("subscribe", "inv");
-    console.log("Connected to Bitcoin.com")
+  socket.emit("subscribe", "inv");
+  console.log("Connected to Bitcoin.com");
 });
 
-socket.on("tx", (data) => {
-    const vout = data.vout;
+socket.on("tx", data => {
+  const vout = data.vout;
 
-    let donation = settings.testmode ? Math.floor(Math.random() * 100000000) : null;
+  let donation = settings.testmode
+    ? Math.floor(Math.random() * 100000000)
+    : null;
 
-    vout.forEach(element => {
-        const value = element[address] || 0;
-        if (value !== 0) donation = value;
+  vout.forEach(element => {
+    const value = element[address] || 0;
+    if (value !== 0) donation = value;
+  });
 
-    });
-
-    if (donation !== null) displayNotification(donation);
+  if (donation !== null) displayNotification(donation);
 });
 
-const displayNotification = (val) => {
+const displayNotification = val => {
+  const unit = settings.units;
 
-    const unit = settings.units;
+  let value = 0.0;
+  switch (unit) {
+    case "full":
+      value = (val / 100000000).toFixed(8) + " BCH";
+      break;
+    case "bits":
+      value = val / 100 + " BCH Bits";
+      break;
+    case "sats":
+      value = val + " Satoshis";
+      break;
+    default:
+      value = val + " Satoshis";
+  }
 
-    let value = 0.00000000;
-    switch (unit) {
-        case "full":
-            value = (val / 100000000).toFixed(8) + " BCH";
-            break;
-        case "bits":
-            value = val / 100 + " BCH Bits";
-            break;
-        case "sats":
-            value = val + " Satoshis";
-            break;
-        default:
-            value = val + " Satoshis";
-    }
+  amount.innerHTML = value;
 
-    notify.className = "show";
+  notify.className = settings.notification.animations.entry;
 
-    amount.innerHTML = value;
-    settings.sound && audio.play();
-
-    clearTimeout(timeout);
-    timeout = setTimeout(() => {
-        notify.className = "hidden";
-
-    }, settings.notification.duration);
-
-}
+  settings.sound && audio.play();
+  
+  clearTimeout(timeout);
+  timeout = setTimeout(() => {
+    notify.className = settings.notification.animations.exit;
+  }, settings.notification.duration);
+};
 
 const init = () => {
-    message.innerHTML = settings.notification.message;
-    notify.style.color = settings.notification.color;
-    notify.style.fontFamily = settings.notification.font;
-    notify.style.fontSize = settings.notification.size + 'px';
-}
+  message.innerHTML = settings.notification.message;
+  notify.style.color = settings.notification.color;
+  notify.style.fontFamily = settings.notification.font;
+  notify.style.fontSize = settings.notification.size + "px";
+};
 
 init();

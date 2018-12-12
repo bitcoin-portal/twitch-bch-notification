@@ -1,19 +1,75 @@
-.container{
+.container {
   background: transparent;
   text-align: center;
-  
 }
 
-#notification{
+#notification {
   transition: all 0.3s ease-out;
 }
 
-.hidden{
-  visibility: hidden;
+.hidden {
   opacity: 0;
 }
 
 .show {
-  visibility: visible;
   opacity: 1;
+}
+
+/* ENTRY CLASSES */
+.swirl-in-fwd {
+  animation: swirl-in-fwd 0.6s ease-out both;
+}
+.flip-in-hor-bottom {
+  animation: flip-in-hor-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes swirl-in-fwd {
+  0% {
+    transform: rotate(-540deg) scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: rotate(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes flip-in-hor-bottom {
+  0% {
+    transform: rotateX(80deg);
+    opacity: 0;
+  }
+  100% {
+    transform: rotateX(0);
+    opacity: 1;
+  }
+}
+
+/* EXIT CLASSES */
+.swirl-out-bck {
+  animation: swirl-out-bck 0.6s ease-in both;
+}
+.flip-out-hor-top {
+  animation: flip-out-hor-top 0.45s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+}
+
+@keyframes swirl-out-bck {
+  0% {
+    transform: rotate(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(-540deg) scale(0);
+    opacity: 0;
+  }
+}
+@keyframes flip-out-hor-top {
+  0% {
+    transform: rotateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: rotateX(70deg);
+    opacity: 0;
+  }
 }

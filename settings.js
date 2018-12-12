@@ -1,33 +1,37 @@
 const settings = {
+  // Bitcoin cash cashaddr. must be prepended with 'bitcoincash:'
+  cashaddr: "bitcoincash:qp8kqqcnklpfhk2vz539cqq3htw2g0sq0qmuaugn0k",
 
-    // Bitcoin cash cashaddr. must be prepended with 'bitcoincash:'
-    cashaddr: "bitcoincash:qp8kqqcnklpfhk2vz539cqq3htw2g0sq0qmuaugn0k",
-    
-    // "full", "bits", "sats"
-    units: "full",
-    
-     // set to true to show random transactions 
-    testmode: true,
+  // "full", "bits", "sats"
+  units: "full",
 
-    // play sound with donation
-    sound: true, 
-    
-    // notification settings
-    notification: {
+  // set to true to show random transactions
+  testmode: true,
 
-        // donation message. leave blank if no message wanted
-        message: "",
+  // play sound with donation
+  sound: true,
 
-        //duration in milisecons (aka 4000 = 4s)
-        duration: 4000, 
-        
-        // name (eg "red"), hex (eg "#FFF") or rgb (eg "rgb(0,0,0,0)")
-        color: "red", 
+  // notification settings
+  notification: {
+    // donation message. leave blank if no message wanted
+    message: "",
 
-        // font size in pixels
-        size: "38", 
+    //duration in milisecons (aka 4000 = 4s)
+    duration: 4000,
 
-        // choose font from - https://fonts.google.com/
-        font: "Montserrat"
+    // name (eg "red"), hex (eg "#FFF") or rgb (eg "rgb(0,0,0,0)")
+    color: "red",
+
+    // font size in pixels
+    size: "38",
+
+    // choose font from - https://fonts.google.com/
+    font: "Montserrat",
+
+    // select animation for entry/exit. see style.css for entry/exit classes
+    animations: {
+      entry: "swirl-in-fwd",
+      exit: "flip-out-hor-top"
     }
+  }
 };
